@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matheo Link</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+    <style>
+        :root {
+            --primary-color: #5865F2;
+            --dark-bg: #1e1f29;
+            --card-bg: #2c2f33;
+            --text-color: #ffffff;
+            --accent-color: #00C853;
+            --error-color: #f04747;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--primary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.1) 0%, rgba(88, 101, 242, 0.2) 100%);
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #5865F2, #00C853);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #b9bbbe;
+        }
+        
+        .cta-button {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .feature-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .testimonials {
+            margin-bottom: 60px;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .testimonial-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .testimonial-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s;
+            object-fit: cover;
+        }
+        
+        .testimonial-card:hover .testimonial-image {
+            transform: scale(1.02);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: auto;
+        }
+        
+        .testimonial-avatar-link {
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .testimonial-avatar-link:hover {
+            transform: scale(1.1);
+        }
+
+        .testimonial-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .image-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(88, 101, 242, 0.3);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent-color);
+        }
+        
+        .faq-section {
+            margin-bottom: 60px;
+        }
+        
+        .faq-item {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .faq-answer {
+            padding: 0 20px 20px;
+            color: #b9bbbe;
+            display: none;
+        }
+        
+        .faq-active .faq-answer {
+            display: block;
+        }
+        
+        .final-cta {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.1) 0%, rgba(88, 101, 242, 0.2) 100%);
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 40px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #b9bbbe;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Notificações - Versão Aprimorada */
+        .notifications-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+        }
+        
+        .notification {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--accent-color);
+            border-radius: 6px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: slideInRight 0.5s ease-out forwards;
+            transform: translateX(350px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease, margin-top 0.3s ease;
+            margin-bottom: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .notification.exiting {
+            animation: slideOutRight 0.5s ease-in forwards;
+        }
+        
+        .notification-icon {
+            margin-right: 10px;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+            color: var(--accent-color);
+        }
+        
+        .notification-message {
+            font-size: 0.9rem;
+            color: #b9bbbe;
+        }
+        
+        .notification-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background-color: var(--accent-color);
+            width: 100%;
+            transform-origin: left;
+            animation: progressBar 8s linear forwards;
+        }
+        
+        @keyframes slideInRight {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutRight {
+            to {
+                transform: translateX(350px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes progressBar {
+            from {
+                transform: scaleX(1);
+            }
+            to {
+                transform: scaleX(0);
+            }
+        }
+        
+        /* Responsividade Melhorada */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .feature-card {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px 0;
+                position: relative;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+                display: none;
+                margin-top: 15px;
+                gap: 10px;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 10px;
+            }
+            
+            .hero {
+                padding: 40px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .testimonial-card {
+                padding: 15px;
+            }
+            
+            .testimonial-image {
+                height: 180px;
+            }
+            
+            .faq-question {
+                padding: 15px;
+                font-size: 0.95rem;
+            }
+            
+            .faq-answer {
+                padding: 0 15px 15px;
+            }
+            
+            .final-cta {
+                padding: 40px 20px;
+            }
+            
+            .notifications-container {
+                top: 10px;
+                right: 10px;
+                max-width: 250px;
+            }
+            
+            .notification {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .modal-content {
+                max-width: 95%;
+            }
+            
+            .close-modal {
+                top: 10px;
+                right: 15px;
+                font-size: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 24px;
+            }
+            
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+            
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .notifications-container {
+                max-width: 200px;
+            }
+            
+            .notification {
+                padding: 8px 10px;
+            }
+            
+            .notification-title {
+                font-size: 0.9rem;
+            }
+            
+            .notification-message {
+                font-size: 0.8rem;
+            }
+            
+            .testimonial-image {
+                height: 160px;
+            }
+            
+            .testimonial-avatar-link {
+                width: 35px;
+                height: 35px;
+                margin-right: 10px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .testimonial-image {
+                height: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="notifications-container" id="notifications-container">
+        <!-- Notificações serão adicionadas aqui via JavaScript -->
+    </div>
+    
+    <!-- Modal para visualização de imagem -->
+    <div class="image-modal" id="image-modal">
+        <span class="close-modal" id="close-modal">&times;</span>
+        <img class="modal-content" id="modal-image">
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">MATHEO <span>LINKS</span></div>
+            <button class="mobile-menu-btn">☰</button>
+            <div class="nav-links">
+                <a href="#home">Início</a>
+                <a href="#features">Vantagens</a>
+                <a href="#testimonials">Feedback</a>
+                <a href="#faq">Perguntas</a>
+                <a href="#cta">Entrar</a>
+            </div>
+        </header>
+        
+        <section id="home" class="hero">
+            <h1>O SERVIDOR EXCLUSIVO DO SAMMY QUE NINGUÉM TEM</h1>
+            <p>Temos os servidores privados onde o Sammy usa e deixa rolando admin abuses 24/7 Para testes e atualizações futuras!</p>
+            <a href="https://roblox.gf/games/109983668079237/Steal-a-Brainrot?privateServerLinkCode=56332075541900661255804773760106" class="cta-button" id="cta-scroll" target="_blank" rel="noopener noreferrer">ENTRAR AGORA!</a>
+        </section>
+        
+        <section id="features">
+            <h2 class="section-title">O Que Você Vai Conseguir?</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3>Brainrot Unicos</h3>
+                    <p>No servidor dele spwanam brainrots secretos, OG e muito mais, ao inves de você ter que pagar uma nota em lojinhas, mais simples pegar no servidor do sammy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3>Informações Previlegiadas</h3>
+                    <p>Acesso a informações privilegiadas, Atualizações que não estão disponíveis em nenhum outro lugar.</p>
+                </div>
+                <div class= "feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Resultados Comprovados</h3>
+                    <p>Players que entraram no servidor tiveram melhorias significativas em seu desempenho e vendas.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="testimonials" class="testimonials">
+            <h2 class="section-title">O Que Estão Falando</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card" data-image="https://media.discordapp.net/attachments/1419055523726229584/1419056889303662652/image.png?ex=68d05f37&is=68cf0db7&hm=6794a9d4942164ca7a1a7b9b5a0deac7e629d0b7ee1dd76a63f6ae9a48a848c1&=&format=webp&quality=lossless&width=366&height=256">
+                    <img src="https://media.discordapp.net/attachments/1419055523726229584/1419056889303662652/image.png?ex=68d05f37&is=68cf0db7&hm=6794a9d4942164ca7a1a7b9b5a0deac7e629d0b7ee1dd76a63f6ae9a48a848c1&=&format=webp&quality=lossless&width=366&height=256" alt="Feedback 1" class="testimonial-image">
+                    <div class="testimonial-author">
+                        <a href="#" class="testimonial-avatar-link">
+                            <img src="https://cdn.discordapp.com/attachments/1382712002727903294/1418875179097919629/b0f5db6e5326ef0ab5f954afce12dddc.jpg?ex=68cfb5fc&is=68ce647c&hm=80d4d355de6147ecb731d393abff92b50ae94612c9edd7d0891170c56b7a7ff0" alt="Avatar" class="testimonial-avatar">
+                        </a>
+                        <div>Larizin_xs</div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-image="https://media.discordapp.net/attachments/1419055523726229584/1419059093620002816/image.png?ex=68d06144&is=68cf0fc4&hm=4beeb1323a7034a7d1257a2008bd3c2be7c11890e5f9cc2fbba899d1ac6e0aa6&=&format=webp&quality=lossless&width=304&height=213">
+                    <img src="https://media.discordapp.net/attachments/1419055523726229584/1419059093620002816/image.png?ex=68d06144&is=68cf0fc4&hm=4beeb1323a7034a7d1257a2008bd3c2be7c11890e5f9cc2fbba899d1ac6e0aa6&=&format=webp&quality=lossless&width=304&height=213" alt="Feedback 2" class="testimonial-image">
+                    <div class="testimonial-author">
+                        <a href="#" class="testimonial-avatar-link">
+                            <img src="https://media.discordapp.net/attachments/1407398655299944570/1416149482671706303/79ec13042b84f94790ef2913f5ab6b00.jpg?ex=68d0577b&is=68cf05fb&hm=84f6166d79d84e9c84deaa52a18e1da4b43e48f94d416cda375c8f1a18c9f3f2&=&format=webp&width=593&height=653" alt="Avatar" class="testimonial-avatar">
+                        </a>
+                        <div>Daviixgod</div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-image="https://media.discordapp.net/attachments/1419055523726229584/1419060795739734016/image.png?ex=68d062da&is=68cf115a&hm=8f0801e3228eac9104a90a917f2669f7bc2eb3ab6db9fa307c05ea679a3fa2a3&=&format=webp&quality=lossless&width=306&height=213">
+                    <img src="https://media.discordapp.net/attachments/1419055523726229584/1419060795739734016/image.png?ex=68d062da&is=68cf115a&hm=8f0801e3228eac9104a90a917f2669f7bc2eb3ab6db9fa307c05ea679a3fa2a3&=&format=webp&quality=lossless&width=306&height=213" alt="Feedback 3" class="testimonial-image">
+                    <div class="testimonial-author">
+                        <a href="#" class="testimonial-avatar-link">
+                            <img src="https://cdn.discordapp.com/attachments/1414311428218814606/1419060199733330112/7a484a63d2c9b9ba1f2db63895fb8201.webp?ex=68d0624c&is=68cf10cc&hm=6f0a920999cd85465d9747111318dff0b279c907f1a8a0ddae7e61d839214b8b" alt="Avatar" class="testimonial-avatar">
+                        </a>
+                        <div>eoelizinvida_27</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="faq" class="faq-section">
+            <h2 class="section-title">Perguntas Frequentes</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        O que é o MatheoLink? <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>MatheoLink é apenas o site, temos um servidor exclusivo criado pelo Sammy, que contém admin abuse 24/7 esses servidores eles não são disponíveis publicamente.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Como posso ter acesso? <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>O acesso é limitado e por Convite Apenas. Se caso ainda tiver vaga ira aparecer um botão no final da pagina.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Quanto custa? <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nada, não cobramos por algo que é de graça.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        É seguro? <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim, os servidores que providenciamos são originalmente do dono do Roube um Brainrot.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="cta" class="final-cta">
+            <h2 class="section-title">Preparado para lucrar?</h2>
+            <p>Entre no servidor antes que acabe as vagas, elas são limitadas e demora para conseguir more links.</p>
+            <a href="https://roblox.gf/games/109983668079237/Steal-a-Brainrot?privateServerLinkCode=56332075541900661255804773760106" class="cta-button" id="cta-scroll" target="_blank" rel="noopener noreferrer">ENTRAR AGORA!</a>
+        </section>
+        
+        <footer>
+            <div class="footer-links">
+                <a href="#">Termos de Uso</a>
+                <a href="#">Política de Privacidade</a>
+                <a href="#">Contato</a>
+            </div>
+            <p>&copy; 2025 MatheoLinks. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Lista de nomes para as notificações
+        const fakeUsers = [
+            "MateusGamer011", "AnaJoga321", "CarlosRoblox", "JuliaPlay", "LucasGameplay",
+            "PedroGamerBR", "MariaPlayer", "JoaoJogador", "PaulaGames", "RicardoStream",
+            "FernandaPro", "RobertoNinja", "CamilaExpert", "FelipeMaster", "LarissaTop",
+            "GustavoCrazy", "IsabelaPower", "RafaelElite", "BeatrizWin", "ThiagoProPlayer",
+            "AmandaGamer", "DiegoCampeao", "CarolineRainbow", "MarcosDiamond", "VanessaStar",
+            "BrunoVortex", "LeticiaStorm", "RodrigoBlast", "TatianeFlash", "ViniciusWave",
+            "JessicaQueen", "RenatoKing", "PatriciaMagic", "AlexandreFire", "DanielaShadow",
+            "LeonardoX", "GabrielaPhantom", "AndreNinja", "IsadoraCrystal", "HugoWolf"
+        ];
+
+        // Função para criar notificações
+        function createNotification(user) {
+            const notificationsContainer = document.getElementById('notifications-container');
+            
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            notification.innerHTML = `
+                <div class="notification-icon">🎮</div>
+                <div class="notification-content">
+                    <div class="notification-title">${user}</div>
+                    <div class="notification-message">Entrou no servidor</div>
+                </div>
+                <div class="notification-progress"></div>
+            `;
+            
+            notificationsContainer.appendChild(notification);
+            
+            // Inicia a animação de entrada após um pequeno delay
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+                notification.style.opacity = '1';
+            }, 10);
+            
+            // Remove a notificação após 8 segundos
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.classList.add('exiting');
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 500);
+                }
+            }, 8000);
+        }
+
+        // Função para gerar notificações em intervalos mais lentos
+        function startNotifications() {
+            // Cria algumas notificações iniciais com intervalos maiores
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    const randomUser = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
+                    createNotification(randomUser);
+                }, i * 3000); // 3 segundos entre cada notificação inicial
+            }
+            
+            // Continua criando notificações em intervalos mais lentos
+            setInterval(() => {
+                const randomUser = fakeUsers[Math.floor(Math.random() * fakeUsers.length)];
+                createNotification(randomUser);
+            }, 8000 + Math.random() * 7000); // Entre 8 e 15 segundos
+        }
+
+        // Função para o modal de imagem
+        function setupImageModal() {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image');
+            const closeModal = document.getElementById('close-modal');
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+            
+            // Abrir modal ao clicar em um card de testimonial
+            testimonialCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const imageUrl = card.getAttribute('data-image');
+                    modalImg.src = imageUrl;
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Impede scroll no body
+                });
+            });
+            
+            // Fechar modal
+            closeModal.addEventListener('click', () => {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Restaura scroll
+            });
+            
+            // Fechar modal ao clicar fora da imagem
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Fechar modal com a tecla ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu mobile
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
+            }
+            
+            // Fechar menu mobile ao clicar em um link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+            
+            // Smooth scroll para links internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // FAQ accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Fecha todos os outros itens
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('faq-active');
+                            otherItem.querySelector('span').textContent = '+';
+                        }
+                    });
+                    
+                    // Alterna o item atual
+                    item.classList.toggle('faq-active');
+                    const plusSign = question.querySelector('span');
+                    plusSign.textContent = item.classList.contains('faq-active') ? '-' : '+';
+                });
+            });
+            
+            // Animação de elementos ao scroll
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Aplicar animação aos elementos
+            const animatedElements = document.querySelectorAll('.feature-card, .testimonial-card');
+            animatedElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+            
+            // Iniciar notificações
+            startNotifications();
+            
+            // Configurar modal de imagem
+            setupImageModal();
+        });
+    </script>
+</body>
+</html>
